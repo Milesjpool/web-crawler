@@ -5,5 +5,6 @@ import "github.com/Milesjpool/web-crawler/internal/webcrawler"
 
 func main() {
   out := os.Stdout
-  webcrawler.Execute(out);
+  args := os.Args[1:]
+  webcrawler.Execute(out, args);
 }

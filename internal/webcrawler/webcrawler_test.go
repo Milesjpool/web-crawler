@@ -4,11 +4,12 @@ import "testing"
 
 func TestExecute(t *testing.T){
   writer := new(MockWriter)
+  args := []string{"planet"}
 
-  Execute(writer)
+  Execute(writer, args)
 
   actual := writer.written
-  expected := "Hello, world!"
+  expected := "Hello, planet!"
 
   if actual != expected {
     t.Error("Expected: ", expected, ", but was: ", actual);
