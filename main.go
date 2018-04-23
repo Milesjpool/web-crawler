@@ -1,9 +1,9 @@
 package main
 
-import "fmt"
+import "os"
 import "github.com/Milesjpool/web-crawler/internal/webcrawler"
 
 func main() {
-  output := webcrawler.Crawl();
-  fmt.Println(output)
+  out := os.Stdout
+  webcrawler.Execute(out);
 }

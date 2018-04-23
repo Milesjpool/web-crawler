@@ -1,5 +1,8 @@
 package webcrawler
 
-func Crawl() string {
-  return "Hello, world!"
+import "io"
+import "fmt"
+
+func Execute(writer io.Writer) {
+  fmt.Fprintf(writer, "Hello, world!")
 }
