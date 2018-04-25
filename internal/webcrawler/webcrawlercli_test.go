@@ -12,6 +12,7 @@ func TestExecute(t *testing.T){
   actual := writer.written
   expected := []string{
     "Crawling 'my.domain.com' from '" + page + "'.",
+    "{\"page\":\"" + page + "\", \"subpages\":[]}",
   }
 
   if len(actual) != len(expected) {

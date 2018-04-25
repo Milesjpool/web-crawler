@@ -2,9 +2,9 @@ package webcrawler
 
 import "testing"
 
-func TestParseArguments(t *testing.T){
+func TestParseCliArguments(t *testing.T){
   args := []string{"http://my.domain.com/path"}
-  crawlerArgs := ParseArguments(args)
+  crawlerArgs := ParseCliArguments(args)
 
   expectedDomain := "my.domain.com"
 

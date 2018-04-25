@@ -7,7 +7,7 @@ type CrawlerArgs struct {
   domain string
 }
 
-func ParseArguments(rawArgs []string) (args *CrawlerArgs){
+func ParseCliArguments(rawArgs []string) (args *CrawlerArgs){
   url := rawArgs[0]
   host, _ := domain.From(url)
 
