@@ -7,7 +7,8 @@ func TestExecute(t *testing.T){
   page := "http://my.domain.com/path"
   args := []string{page}
 
-  Execute(writer, args)
+  crawler := CliCrawler{writer}
+  crawler.Execute(args)
 
   actual := writer.written
   expected := []string{
