@@ -1,6 +1,9 @@
 # Executable
 web-crawler
 
+# IntelliJ
+.idea
+
 # Binaries for programs and plugins
 *.exe
 *.dll

@@ -3,11 +3,13 @@ package webcrawler
 import "github.com/Milesjpool/web-crawler/internal/webcrawler/domain"
 
 type CrawlerArgs struct {
+  entryPoint string
   domain string
 }
 
 func ParseArguments(rawArgs []string) (args *CrawlerArgs){
-  domain, _ := domain.ExtractDomain(rawArgs[0])
+  url := rawArgs[0]
+  host, _ := domain.From(url)
 
-  return &CrawlerArgs{domain: domain}
+  return &CrawlerArgs{entryPoint: url, domain: host}
 }

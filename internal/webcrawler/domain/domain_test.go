@@ -4,7 +4,7 @@ import (
   "testing"
 )
 
-func TestExtractDomain(t *testing.T){
+func TestFrom(t *testing.T){
 
   tables := []struct {
     url string
@@ -18,7 +18,7 @@ func TestExtractDomain(t *testing.T){
   }
 
   for _, table := range tables {
-    host, err := ExtractDomain(table.url);
+    host, err := From(table.url);
     expected := table.expected
 
     if host != expected {

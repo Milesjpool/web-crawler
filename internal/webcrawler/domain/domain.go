@@ -2,8 +2,8 @@ package domain
 
 import "net/url"
 
-func ExtractDomain(rawurl string) (host string, err error) {
-  u, err := url.Parse(rawurl)
+func From(rawUrl string) (host string, err error) {
+  u, err := url.Parse(rawUrl)
   if err != nil {
     return "", err
   }
