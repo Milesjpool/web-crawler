@@ -9,7 +9,7 @@ import (
 func TestRetrievePage(t *testing.T) {
 	client := StubHttpClient{}
 	pageRetriever := WebPageRetriever{HttpClient: client}
-	data, err := pageRetriever.RetrievePage("my-website")
+	data, err := pageRetriever.RetrieveData("my-website")
 
 	if err != nil {
 		t.Error("Failed to retrieve page", err);

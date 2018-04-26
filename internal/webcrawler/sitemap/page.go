@@ -11,8 +11,8 @@ func NewPage(url string) Page {
 	return Page{Url: url, SubPages: []Page{}}
 }
 
-func (page *Page) AddSubPage(url string) {
-	page.SubPages = append(page.SubPages, NewPage(url))
+func (page *Page) AddSubPage(newPage Page) {
+	page.SubPages = append(page.SubPages, newPage)
 }
 
 func (page *Page) SameAs(otherPage Page) bool {

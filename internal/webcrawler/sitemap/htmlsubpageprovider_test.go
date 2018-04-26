@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func TestGetSubPages(t *testing.T) {
+func TestGetSubPages_HtmlSubPageProvider(t *testing.T) {
 	pageRetriever := StubPageRetriever{}
 	subPageProvider := HtmlSubPageProvider{pageRetriever}
 	subPages := subPageProvider.GetSubPages("http://page1.com/url")
@@ -25,7 +25,7 @@ func TestGetSubPages(t *testing.T) {
 type StubPageRetriever struct {
 }
 
-func (s StubPageRetriever) RetrievePage(url string) (io.Reader, error) {
+func (s StubPageRetriever) RetrieveData(url string) (io.Reader, error) {
 	return strings.NewReader("<html><body>"+
 		"<a href=\"/page1\">link1</a>"+
 		"<a href=\"http://page2.com/page2\">link2</a>"+

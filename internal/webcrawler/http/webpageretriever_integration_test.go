@@ -9,7 +9,7 @@ import (
 
 func TestRetrievePage_Integration(t *testing.T) {
 	pageRetriever := WebPageRetriever{HttpClient:http.DefaultClient}
-	data, err := pageRetriever.RetrievePage("https://monzo.com/")
+	data, err := pageRetriever.RetrieveData("https://monzo.com/")
 
 	if err != nil {
 		t.Error("Failed to retrieve page", err);

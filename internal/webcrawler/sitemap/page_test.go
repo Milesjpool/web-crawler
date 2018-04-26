@@ -32,7 +32,7 @@ func TestAddSubPage(t *testing.T) {
 	url2 := "url2"
 	page := NewPage(url1)
 
-	page.AddSubPage(url2)
+	page.AddSubPage(NewPage(url2))
 
 	expected := Page{Url:url1, SubPages:[]Page{NewPage("url2")}}
 
@@ -45,7 +45,7 @@ func TestSameAs(t *testing.T) {
 	url1 := "url1"
 	url2 := "url2"
 	page := NewPage(url1)
-	page.AddSubPage(url2)
+	page.AddSubPage(NewPage(url2))
 
 	samePage := NewPage(url1)
 	differentPage := NewPage(url2)

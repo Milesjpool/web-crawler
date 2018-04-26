@@ -18,8 +18,9 @@ func (cc CliCrawler) Execute(args []string) {
 	fmt.Fprintf(cc.Writer, "Crawling '%s' from '%s'.", crawlerArgs.domain, crawlerArgs.entryPoint)
 
 	pageRetriever := http.WebPageRetriever{HttpClient:cc.HttpClient}
-	subPageProvider := sitemap.HtmlSubPageProvider{PageRetriever: pageRetriever}
-	crawler := WebCrawler{SubPageProvider: subPageProvider}
+	htmlSubPageProvider := sitemap.HtmlSubPageProvider{PageRetriever: pageRetriever}
+	absoluteSubPageProvider := sitemap.AbsoluteSubPageProvider{SubPageProvider: htmlSubPageProvider}
+	crawler := WebCrawler{SubPageProvider: absoluteSubPageProvider}
 
 	result := crawler.Crawl(crawlerArgs)
 

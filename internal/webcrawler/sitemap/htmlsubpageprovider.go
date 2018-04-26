@@ -8,11 +8,11 @@ import (
 const aTag, hrefTag = "a", "href"
 
 type HtmlSubPageProvider struct {
-	PageRetriever http.PageRetriever
+	PageRetriever http.DataRetriever
 }
 
 func (s HtmlSubPageProvider) GetSubPages(url string) []string {
-	content, _ := s.PageRetriever.RetrievePage(url)
+	content, _ := s.PageRetriever.RetrieveData(url)
 
 	tokenizer := html.NewTokenizer(content)
 

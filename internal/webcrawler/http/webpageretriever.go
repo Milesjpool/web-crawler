@@ -11,7 +11,7 @@ type WebPageRetriever struct {
 	HttpClient HttpClient
 }
 
-func (r WebPageRetriever) RetrievePage(url string) (io.Reader, error) {
+func (r WebPageRetriever) RetrieveData(url string) (io.Reader, error) {
 	response, err := r.HttpClient.Get(url)
 	if err != nil {
 		return nil, err
