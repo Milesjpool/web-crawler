@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func TestRetrievePage(t *testing.T) {
+func TestRetrievePage_Integration(t *testing.T) {
 	pageRetriever := WebPageRetriever{HttpClient:http.DefaultClient}
 	data, err := pageRetriever.RetrievePage("https://monzo.com/")
 
