@@ -1,9 +1,5 @@
 package sitemap
 
-type SubPageProvider interface {
-	GetSubPages(page string) []string
-}
-
 type HtmlSubPageProvider struct {
 }
 

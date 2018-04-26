@@ -27,7 +27,7 @@ func TestNewPage(t *testing.T) {
 	}
 }
 
-func TestAddSubpage(t *testing.T) {
+func TestAddSubPage(t *testing.T) {
 	url1 := "url1"
 	url2 := "url2"
 	page := NewPage(url1)
@@ -38,5 +38,23 @@ func TestAddSubpage(t *testing.T) {
 
 	if !reflect.DeepEqual(page, expected) {
 		t.Error("Expected: ", expected, ", but was: ", page);
+	}
+}
+
+func TestSameAs(t *testing.T) {
+	url1 := "url1"
+	url2 := "url2"
+	page := NewPage(url1)
+	page.AddSubPage(url2)
+
+	samePage := NewPage(url1)
+	differentPage := NewPage(url2)
+
+	if ! page.SameAs(samePage) {
+		t.Error("Expected: ", page, ", to be the same as: ", samePage);
+	}
+
+	if page.SameAs(differentPage) {
+		t.Error("Expected: ", page, ", to not be the same as: ", differentPage);
 	}
 }

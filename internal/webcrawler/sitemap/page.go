@@ -15,6 +15,10 @@ func (page *Page) AddSubPage(url string) {
 	page.SubPages = append(page.SubPages, NewPage(url))
 }
 
+func (page *Page) SameAs(otherPage Page) bool {
+	return page.Url == otherPage.Url
+}
+
 func (page *Page) ToJson() string {
 	jsonResult, _ := json.Marshal(page)
 	return string(jsonResult)
