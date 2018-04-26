@@ -11,11 +11,9 @@ func (s AbsoluteSubPageProvider) GetSubPages(pageUrl *url.URL) []string {
 
 	for i, v := range subPages {
 		subUrl, _ := url.Parse(v)
-
 		if !subUrl.IsAbs(){
 			subPages[i] = formAbsUrl(pageUrl, subUrl)
 		}
-
 	}
 
 	return subPages

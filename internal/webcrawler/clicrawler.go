@@ -20,7 +20,8 @@ func (cc CliCrawler) Execute(args []string) {
 	pageRetriever := http.WebPageRetriever{HttpClient:cc.HttpClient}
 	htmlSubPageProvider := sitemap.HtmlSubPageProvider{PageRetriever: pageRetriever}
 	absoluteSubPageProvider := sitemap.AbsoluteSubPageProvider{SubPageProvider: htmlSubPageProvider}
-	crawler := WebCrawler{SubPageProvider: absoluteSubPageProvider}
+	domainSubPageProvider := sitemap.DomainSubPageProvider{SubPageProvider: absoluteSubPageProvider}
+	crawler := WebCrawler{SubPageProvider: domainSubPageProvider}
 
 	result := crawler.Crawl(crawlerArgs)
 

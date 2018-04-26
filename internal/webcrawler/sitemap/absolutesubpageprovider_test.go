@@ -9,7 +9,7 @@ import (
 
 func TestGetSubPages_AbsoluteSubPageProvider(t *testing.T) {
 	rootPage, _ := url.Parse("http://page1.com/")
-	pageProvider := StubSubPageProvider{}
+	pageProvider := StubSubPageProvider_AbsoluteSubPageProvider{}
 	subPageProvider := AbsoluteSubPageProvider{SubPageProvider: pageProvider}
 	subPages := subPageProvider.GetSubPages(rootPage)
 
@@ -23,10 +23,10 @@ func TestGetSubPages_AbsoluteSubPageProvider(t *testing.T) {
 	}
 }
 
-type StubSubPageProvider struct {
+type StubSubPageProvider_AbsoluteSubPageProvider struct {
 }
 
-func (s StubSubPageProvider) GetSubPages(pageUrl *url.URL) []string {
+func (s StubSubPageProvider_AbsoluteSubPageProvider) GetSubPages(pageUrl *url.URL) []string {
 	return []string{"/page1", "http://page2.com/page2"}
 }
 
