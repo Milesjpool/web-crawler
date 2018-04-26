@@ -12,7 +12,7 @@ type HtmlSubPageProvider struct {
 }
 
 func (s HtmlSubPageProvider) GetSubPages(url string) []string {
-	content := s.PageRetriever.RetrievePage(url)
+	content, _ := s.PageRetriever.RetrievePage(url)
 
 	tokenizer := html.NewTokenizer(content)
 

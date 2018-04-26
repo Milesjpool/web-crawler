@@ -9,6 +9,7 @@ import (
 
 type CliCrawler struct {
 	Writer io.Writer
+	HttpClient http.HttpClient
 }
 
 
@@ -16,7 +17,7 @@ func (cc CliCrawler) Execute(args []string) {
 	crawlerArgs := ParseCliArguments(args)
 	fmt.Fprintf(cc.Writer, "Crawling '%s' from '%s'.", crawlerArgs.domain, crawlerArgs.entryPoint)
 
-	pageRetriever := http.WebPageRetriever{}
+	pageRetriever := http.WebPageRetriever{HttpClient:cc.HttpClient}
 	subPageProvider := sitemap.HtmlSubPageProvider{PageRetriever: pageRetriever}
 	crawler := WebCrawler{SubPageProvider: subPageProvider}
 

@@ -25,10 +25,10 @@ func TestGetSubPages(t *testing.T) {
 type StubPageRetriever struct {
 }
 
-func (s StubPageRetriever) RetrievePage(url string) io.Reader {
+func (s StubPageRetriever) RetrievePage(url string) (io.Reader, error) {
 	return strings.NewReader("<html><body>"+
 		"<a href=\"/page1\">link1</a>"+
 		"<a href=\"http://page2.com/page2\">link2</a>"+
-	"</body></html>")
+	"</body></html>"), nil
 }
 

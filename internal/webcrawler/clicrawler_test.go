@@ -1,18 +1,23 @@
 package webcrawler
 
-import "testing"
+import (
+	"testing"
+	"net/http"
+)
+
 
 func TestExecute(t *testing.T) {
 	writer := new(MockWriter)
-	page := "http://my.domain.com/path"
+	page := "https://monzo.com/"
 	args := []string{page}
 
-	crawler := CliCrawler{Writer: writer}
+	httpClient := new(MockClient)
+	crawler := CliCrawler{Writer: writer, HttpClient:httpClient}
 	crawler.Execute(args)
 
 	actual := writer.written
 	expected := []string{
-		"Crawling 'my.domain.com' from '" + page + "'.",
+		"Crawling 'monzo.com' from '" + page + "'.",
 		"{\"Url\":\"" + page + "\",\"SubPages\":[]}",
 	}
 
@@ -34,4 +39,11 @@ type MockWriter struct {
 func (mw *MockWriter) Write(b []byte) (int, error) {
 	mw.written = append(mw.written, string(b[:]))
 	return 1, nil
+}
+
+type MockClient struct{
+}
+
+func (MockClient) Get(string) (*http.Response, error) {
+	return &http.Response{StatusCode:404}, nil
 }
