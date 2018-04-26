@@ -12,7 +12,7 @@ type HtmlSubPageProvider struct {
 	PageRetriever http.DataRetriever
 }
 
-func (s HtmlSubPageProvider) GetSubPages(pageUrl *url.URL) []string {
+func (s HtmlSubPageProvider) GetSubPages(pageUrl *url.URL) []url.URL {
 	content, _ := s.PageRetriever.RetrieveData(pageUrl.String())
 
 	tokenizer := html.NewTokenizer(content)
@@ -22,26 +22,27 @@ func (s HtmlSubPageProvider) GetSubPages(pageUrl *url.URL) []string {
 	return subpages;
 }
 
-func extractSubPages(tokenizer *html.Tokenizer) []string {
-	subPages := make([]string, 0)
+func extractSubPages(tokenizer *html.Tokenizer) []url.URL {
+	subPages := make([]url.URL, 0)
 
 	for tokenType := tokenizer.Next(); tokenType != html.ErrorToken; tokenType = tokenizer.Next() {
 		token := tokenizer.Token()
 		if token.Data == aTag {
 			href, found := getHref(token)
 			if found {
-				subPages = append(subPages, href)
+				subPages = append(subPages, *href)
 			}
 		}
 	}
 	return subPages
 }
 
-func getHref(t html.Token) (href string, found bool) {
+func getHref(t html.Token) (href *url.URL, found bool) {
 	for _, attribute := range t.Attr {
 		if attribute.Key == hrefTag {
-			return attribute.Val, true
+			href, _ := url.Parse(attribute.Val)
+			return href, true
 		}
 	}
-	return "", false
+	return nil, false
 }

@@ -11,7 +11,7 @@ func (wc WebCrawler) Crawl(crawlerArgs *CrawlerArgs) sitemap.Page {
 
 	subPages := wc.SubPageProvider.GetSubPages(root.GetUrl())
 	for _, url := range subPages {
-		page := sitemap.NewPage(url)
+		page := sitemap.NewPage(url.String())
 		root.AddSubPage(page)
 	}
 	return root

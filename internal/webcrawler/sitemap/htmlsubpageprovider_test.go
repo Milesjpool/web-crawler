@@ -14,10 +14,9 @@ func TestGetSubPages_HtmlSubPageProvider(t *testing.T) {
 	subPageProvider := HtmlSubPageProvider{pageRetriever}
 	subPages := subPageProvider.GetSubPages(pageUrl)
 
-	expectedPages := []string{
-		"/page1",
-		"http://page2.com/page2",
-	}
+	url1, _ := url.Parse("/page1")
+	url2, _ := url.Parse("http://page2.com/page2")
+	expectedPages := []url.URL{*url1,*url2}
 
 	if ! reflect.DeepEqual(subPages, expectedPages) {
 		t.Error("Expected: ", expectedPages, ", but was: ", subPages);

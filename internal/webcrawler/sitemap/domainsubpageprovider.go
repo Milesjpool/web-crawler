@@ -6,15 +6,14 @@ type DomainSubPageProvider struct {
 	SubPageProvider SubPageProvider
 }
 
-func (s DomainSubPageProvider) GetSubPages(url *url.URL) []string {
-	allSubPages :=s.SubPageProvider.GetSubPages(url)
+func (s DomainSubPageProvider) GetSubPages(pageUrl *url.URL) []url.URL {
+	allSubPages :=s.SubPageProvider.GetSubPages(pageUrl)
 
-	filteredSubPages := []string{}
+	var filteredSubPages []url.URL
 
-	for _, v := range allSubPages {
-		subUrl, _ := url.Parse(v)
-		if subUrl.Host == url.Host{
-			filteredSubPages = append(filteredSubPages, v)
+	for _, subUrl := range allSubPages {
+		if subUrl.Host == pageUrl.Host {
+			filteredSubPages = append(filteredSubPages, subUrl)
 		}
 	}
 

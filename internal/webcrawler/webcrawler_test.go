@@ -26,7 +26,9 @@ func TestCrawl(t *testing.T) {
 type StubbedSubPageProvider struct {
 }
 
-func (s StubbedSubPageProvider) GetSubPages(page *url.URL) []string {
-	return []string{"page2", "page3"}
+func (s StubbedSubPageProvider) GetSubPages(page *url.URL) []url.URL {
+	url1, _ := url.Parse("page2")
+	url2, _ := url.Parse("page3")
+	return []url.URL{*url1, *url2}
 }
 
