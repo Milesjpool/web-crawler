@@ -7,19 +7,15 @@ import (
 
 type Page struct {
 	Url      string
-	SubPages []Page
+	SubPages []string
 }
 
 func NewPage(url string) Page {
-	return Page{Url: url, SubPages: []Page{}}
+	return Page{Url: url, SubPages: []string{}}
 }
 
-func (page *Page) AddSubPage(newPage Page) {
-	page.SubPages = append(page.SubPages, newPage)
-}
-
-func (page *Page) SameAs(otherPage Page) bool {
-	return page.Url == otherPage.Url
+func (page *Page) AddSubPage(subpage string) {
+	page.SubPages = append(page.SubPages, subpage)
 }
 
 func (page *Page) ToJson() string {

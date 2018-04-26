@@ -7,16 +7,22 @@ import (
 	"net/url"
 )
 
+const page1 = "page1"
+const page2 = "page2"
+const page3 = "page3"
+const page4 = "page4"
+
 func TestCrawl(t *testing.T) {
-	args := &CrawlerArgs{entryPoint:"page1"}
+	args := &CrawlerArgs{entryPoint: page1}
 	subPageProvider := StubbedSubPageProvider{}
 
 	page := WebCrawler{SubPageProvider: subPageProvider}.Crawl(args)
 
-	expectedPage := sitemap.Page{Url: "page1", SubPages: []sitemap.Page{
-		sitemap.NewPage("page2"),
-		sitemap.NewPage("page3"),
-	}}
+	p1 := sitemap.NewPage(page1)
+	p1.AddSubPage(page2)
+	p1.AddSubPage(page3)
+	expectedPage := p1
+
 
 	if ! reflect.DeepEqual(page, expectedPage) {
 		t.Error("Expected: ", expectedPage, ", but was: ", page);
@@ -26,9 +32,16 @@ func TestCrawl(t *testing.T) {
 type StubbedSubPageProvider struct {
 }
 
-func (s StubbedSubPageProvider) GetSubPages(page *url.URL) []url.URL {
-	url1, _ := url.Parse("page2")
-	url2, _ := url.Parse("page3")
-	return []url.URL{*url1, *url2}
+func (s StubbedSubPageProvider) GetSubPages(pageUrl *url.URL) []url.URL {
+	url1, _ := url.Parse(page1)
+	url2, _ := url.Parse(page2)
+	url3, _ := url.Parse(page3)
+	url4, _ := url.Parse(page4)
+
+	if pageUrl.String() == page1{return []url.URL{*url2, *url3}}
+	if pageUrl.String() == page2{return []url.URL{*url3, *url4}}
+	if pageUrl.String() == page3{return []url.URL{*url1, *url4}}
+	if pageUrl.String() == page4{return []url.URL{*url1, *url2}}
+	return []url.URL{}
 }
 
