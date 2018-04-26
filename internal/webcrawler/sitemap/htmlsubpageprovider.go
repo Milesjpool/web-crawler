@@ -3,6 +3,7 @@ package sitemap
 import (
 	"golang.org/x/net/html"
 	"github.com/Milesjpool/web-crawler/internal/webcrawler/http"
+	"net/url"
 )
 
 const aTag, hrefTag = "a", "href"
@@ -11,8 +12,8 @@ type HtmlSubPageProvider struct {
 	PageRetriever http.DataRetriever
 }
 
-func (s HtmlSubPageProvider) GetSubPages(url string) []string {
-	content, _ := s.PageRetriever.RetrieveData(url)
+func (s HtmlSubPageProvider) GetSubPages(pageUrl *url.URL) []string {
+	content, _ := s.PageRetriever.RetrieveData(pageUrl.String())
 
 	tokenizer := html.NewTokenizer(content)
 

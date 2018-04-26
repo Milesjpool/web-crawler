@@ -5,12 +5,14 @@ import (
 	"reflect"
 	"io"
 	"strings"
+	"net/url"
 )
 
 func TestGetSubPages_HtmlSubPageProvider(t *testing.T) {
+	pageUrl, _ := url.Parse("http://page1.com/url")
 	pageRetriever := StubPageRetriever{}
 	subPageProvider := HtmlSubPageProvider{pageRetriever}
-	subPages := subPageProvider.GetSubPages("http://page1.com/url")
+	subPages := subPageProvider.GetSubPages(pageUrl)
 
 	expectedPages := []string{
 		"/page1",

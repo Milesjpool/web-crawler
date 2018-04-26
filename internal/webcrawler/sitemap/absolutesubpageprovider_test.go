@@ -3,13 +3,15 @@ package sitemap
 import (
 	"testing"
 	"reflect"
+	"net/url"
 )
 
 
 func TestGetSubPages_AbsoluteSubPageProvider(t *testing.T) {
+	rootPage, _ := url.Parse("http://page1.com/")
 	pageProvider := StubSubPageProvider{}
 	subPageProvider := AbsoluteSubPageProvider{SubPageProvider: pageProvider}
-	subPages := subPageProvider.GetSubPages("http://page1.com/")
+	subPages := subPageProvider.GetSubPages(rootPage)
 
 	expectedPages := []string{
 		"http://page1.com/page1",
@@ -24,7 +26,7 @@ func TestGetSubPages_AbsoluteSubPageProvider(t *testing.T) {
 type StubSubPageProvider struct {
 }
 
-func (s StubSubPageProvider) GetSubPages(url string) []string {
+func (s StubSubPageProvider) GetSubPages(pageUrl *url.URL) []string {
 	return []string{"/page1", "http://page2.com/page2"}
 }
 

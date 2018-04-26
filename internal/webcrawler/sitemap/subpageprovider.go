@@ -1,5 +1,7 @@
 package sitemap
 
+import "net/url"
+
 type SubPageProvider interface {
-	GetSubPages(url string) []string
+	GetSubPages(pageUrl *url.URL) []string
 }

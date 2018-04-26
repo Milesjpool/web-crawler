@@ -9,7 +9,7 @@ type WebCrawler struct {
 func (wc WebCrawler) Crawl(crawlerArgs *CrawlerArgs) sitemap.Page {
 	root := sitemap.NewPage(crawlerArgs.entryPoint)
 
-	subPages := wc.SubPageProvider.GetSubPages(root.Url)
+	subPages := wc.SubPageProvider.GetSubPages(root.GetUrl())
 	for _, url := range subPages {
 		page := sitemap.NewPage(url)
 		root.AddSubPage(page)

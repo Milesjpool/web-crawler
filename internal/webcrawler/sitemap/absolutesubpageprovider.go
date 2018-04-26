@@ -6,15 +6,14 @@ type AbsoluteSubPageProvider struct {
 	SubPageProvider SubPageProvider
 }
 
-func (s AbsoluteSubPageProvider) GetSubPages(rawUrl string) []string {
-	rootUrl, _ := url.Parse(rawUrl)
-	subPages := s.SubPageProvider.GetSubPages(rootUrl.String())
+func (s AbsoluteSubPageProvider) GetSubPages(pageUrl *url.URL) []string {
+	subPages := s.SubPageProvider.GetSubPages(pageUrl)
 
 	for i, v := range subPages {
 		subUrl, _ := url.Parse(v)
 
 		if !subUrl.IsAbs(){
-			subPages[i] = formAbsUrl(rootUrl, subUrl)
+			subPages[i] = formAbsUrl(pageUrl, subUrl)
 		}
 
 	}

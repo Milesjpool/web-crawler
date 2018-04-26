@@ -1,6 +1,9 @@
 package sitemap
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"net/url"
+)
 
 type Page struct {
 	Url      string
@@ -22,4 +25,8 @@ func (page *Page) SameAs(otherPage Page) bool {
 func (page *Page) ToJson() string {
 	jsonResult, _ := json.Marshal(page)
 	return string(jsonResult)
+}
+func (page *Page) GetUrl() *url.URL {
+	parsed, _ := url.Parse(page.Url)
+	return parsed
 }

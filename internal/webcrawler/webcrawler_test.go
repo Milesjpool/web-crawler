@@ -4,6 +4,7 @@ import (
 	"testing"
 	"github.com/Milesjpool/web-crawler/internal/webcrawler/sitemap"
 	"reflect"
+	"net/url"
 )
 
 func TestCrawl(t *testing.T) {
@@ -25,7 +26,7 @@ func TestCrawl(t *testing.T) {
 type StubbedSubPageProvider struct {
 }
 
-func (s StubbedSubPageProvider) GetSubPages(page string) []string {
+func (s StubbedSubPageProvider) GetSubPages(page *url.URL) []string {
 	return []string{"page2", "page3"}
 }
 
