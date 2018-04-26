@@ -7,7 +7,15 @@ type Page struct {
 	SubPages []Page
 }
 
-func (p *Page) ToJson() string {
-	jsonResult, _ := json.Marshal(p)
+func NewPage(url string) Page {
+	return Page{Url: url, SubPages: []Page{}}
+}
+
+func (page *Page) AddSubPage(url string) {
+	page.SubPages = append(page.SubPages, NewPage(url))
+}
+
+func (page *Page) ToJson() string {
+	jsonResult, _ := json.Marshal(page)
 	return string(jsonResult)
 }
