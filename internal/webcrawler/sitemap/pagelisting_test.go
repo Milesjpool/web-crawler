@@ -40,16 +40,42 @@ func TestPut(t *testing.T) {
 	}
 }
 
+func TestPutPages(t *testing.T) {
+	domain := "my.domain"
+	url1 := "url"
+	pageListing := NewPageListing(domain, url1)
+
+
+	url2 := "newPage1"
+	url3 := "newPage2"
+	pageListing.PutPages([]string{url2, url3})
+
+	expected := PageListing{Domain:domain, EntryPoint:url1, Pages:[]*Page{NewPage(url1),NewPage(url2),NewPage(url3)}}
+
+	if !reflect.DeepEqual(pageListing, expected) {
+		t.Error("Expected: ", expected, ", but was: ", pageListing);
+	}
+}
+
 
 func TestAddSubPages_PageListing(t *testing.T) {
 	domain := "my.domain"
 	page1 := "page1"
+	page2 := "page2"
+	page3 := "page3"
 	pageListing := NewPageListing(domain, page1)
-	pageListing.AddSubPages(page1, []string{"page2", "page3"})
+	pageListing.AddSubPages(page1, []string{page2, page3})
 
 	expectedPage1 := NewPage(page1)
-	expectedPage1.SubPages = []string{"page2", "page3"}
-	expected := PageListing{Domain:domain, EntryPoint:page1, Pages:[]*Page{expectedPage1}}
+	expectedPage1.SubPages = []string{page2, page3}
+	expectedPage2 := NewPage(page2)
+	expectedPage3 := NewPage(page3)
+
+	expected := PageListing{Domain:domain, EntryPoint:page1,
+		Pages:[]*Page{
+			expectedPage1,
+			expectedPage2,
+			expectedPage3}}
 
 	if !reflect.DeepEqual(pageListing, expected) {
 		t.Error("Expected: ", expected, ", but was: ", pageListing);

@@ -25,6 +25,12 @@ func (listing *PageListing) ToJson() string {
 	jsonResult, _ := json.Marshal(listing)
 	return string(jsonResult)
 }
+func (listing *PageListing) PutPages(newPages []string) {
+	for _, p := range newPages {
+		listing.Put(p)
+	}
+}
+
 func (listing *PageListing) Put(newPage string) (added bool) {
 	for _, p := range listing.Pages {
 		if p.Url == newPage {
@@ -34,12 +40,14 @@ func (listing *PageListing) Put(newPage string) (added bool) {
 	listing.Pages = append(listing.Pages, NewPage(newPage))
 	return true
 }
+
 func (listing *PageListing) AddSubPages(page string, subPages []string) {
 	for _, p := range listing.Pages {
 		if p.Url == page {
 			p.AddSubPages(subPages)
 		}
 	}
+	listing.PutPages(subPages)
 }
 
 
