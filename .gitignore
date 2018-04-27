@@ -1,5 +1,6 @@
-# Executable
+# Executable + output
 web-crawler
+output.json
 
 # IntelliJ
 .idea
