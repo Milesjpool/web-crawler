@@ -17,6 +17,7 @@ func TestCrawl(t *testing.T) {
 	pageListing := WebCrawler{SubPageProvider: subPageProvider}.Crawl(args)
 
 	expectedPageListing := sitemap.NewPageListing(myDomain, page1)
+	expectedPageListing.Pages[0].SubPages = []string{page2, page3}
 
 
 	if ! reflect.DeepEqual(pageListing, expectedPageListing) {
