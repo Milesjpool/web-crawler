@@ -1,4 +1,4 @@
-package sitemap
+package subpageproviders
 
 import (
 	"testing"

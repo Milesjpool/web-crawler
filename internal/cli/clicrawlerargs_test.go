@@ -1,4 +1,4 @@
-package webcrawler
+package cli
 
 import "testing"
 

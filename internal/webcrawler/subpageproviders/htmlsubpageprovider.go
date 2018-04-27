@@ -1,4 +1,4 @@
-package sitemap
+package subpageproviders
 
 import (
 	"golang.org/x/net/html"

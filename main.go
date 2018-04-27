@@ -1,13 +1,13 @@
 package main
 
-import "os"
 import (
-	"github.com/Milesjpool/web-crawler/internal/webcrawler"
+	"os"
 	"net/http"
+	"github.com/Milesjpool/web-crawler/internal/cli"
 )
 
 func main() {
 	args := os.Args[1:]
-	cliCrawler := webcrawler.CliCrawler{Writer: os.Stdout, HttpClient:http.DefaultClient}
+	cliCrawler := cli.CliCrawler{Writer: os.Stdout, HttpClient:http.DefaultClient}
 	cliCrawler.Execute(args);
 }

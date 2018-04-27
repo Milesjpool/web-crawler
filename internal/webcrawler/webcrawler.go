@@ -1,17 +1,21 @@
 package webcrawler
 
-import "github.com/Milesjpool/web-crawler/internal/webcrawler/sitemap"
+import (
+	"github.com/Milesjpool/web-crawler/internal/webcrawler/sitemap"
+	"github.com/Milesjpool/web-crawler/internal/webcrawler/subpageproviders"
+)
 
 type WebCrawler struct {
-	SubPageProvider sitemap.SubPageProvider
+	SubPageProvider subpageproviders.SubPageProvider
 }
 
-func (wc WebCrawler) Crawl(crawlerArgs *CrawlerArgs) sitemap.Page {
-	root := sitemap.NewPage(crawlerArgs.entryPoint)
+func (wc WebCrawler) Crawl(crawlerArgs CrawlerArgs) sitemap.PageListing {
+	pageListing := sitemap.NewPageListing(crawlerArgs.GetDomain(), crawlerArgs.GetEntryPoint())
 
-	subPages := wc.SubPageProvider.GetSubPages(root.GetUrl())
+	entryPoint := pageListing.GetEntryPoint()
+	subPages := wc.SubPageProvider.GetSubPages(entryPoint)
 	for _, url := range subPages {
-		root.AddSubPage(url.String())
+		pageListing.Upsert(entryPoint.String(), url.String())
 	}
-	return root
+	return pageListing
 }

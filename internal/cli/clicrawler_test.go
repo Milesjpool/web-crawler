@@ -1,4 +1,4 @@
-package webcrawler
+package cli
 
 import (
 	"testing"
@@ -17,8 +17,11 @@ func TestExecute(t *testing.T) {
 
 	actual := writer.written
 	expected := []string{
-		"Crawling 'monzo.com' from '" + page + "'.",
-		"{\"Url\":\"" + page + "\",\"SubPages\":[]}",
+		"{" +
+			"\"Domain\":\"monzo.com\"," +
+			"\"EntryPoint\":\"" + page + "\"," +
+			"\"Pages\":[{\"Url\":\"" + page + "\",\"SubPages\":[]}]" +
+		"}",
 	}
 
 	if len(actual) != len(expected) {

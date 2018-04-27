@@ -7,26 +7,34 @@ import (
 	"net/url"
 )
 
-const page1 = "page1"
-const page2 = "page2"
-const page3 = "page3"
-const page4 = "page4"
+const myDomain = "my.domain"
+const page1, page2, page3, page4 = "page1", "page2", "page3", "page4"
 
 func TestCrawl(t *testing.T) {
-	args := &CrawlerArgs{entryPoint: page1}
+	args := StubCrawlerArgs{domain: myDomain, entryPoint: page1}
 	subPageProvider := StubbedSubPageProvider{}
 
-	page := WebCrawler{SubPageProvider: subPageProvider}.Crawl(args)
+	pageListing := WebCrawler{SubPageProvider: subPageProvider}.Crawl(args)
 
-	p1 := sitemap.NewPage(page1)
-	p1.AddSubPage(page2)
-	p1.AddSubPage(page3)
-	expectedPage := p1
+	expectedPageListing := sitemap.NewPageListing(myDomain, page1)
 
 
-	if ! reflect.DeepEqual(page, expectedPage) {
-		t.Error("Expected: ", expectedPage, ", but was: ", page);
+	if ! reflect.DeepEqual(pageListing, expectedPageListing) {
+		t.Error("Expected: ", expectedPageListing, ", but was: ", pageListing);
 	}
+}
+
+type StubCrawlerArgs struct {
+	domain string
+	entryPoint string
+}
+
+func (s StubCrawlerArgs) GetDomain() string  {
+	return s.domain
+}
+
+func (s StubCrawlerArgs) GetEntryPoint() string  {
+	return s.entryPoint
 }
 
 type StubbedSubPageProvider struct {
