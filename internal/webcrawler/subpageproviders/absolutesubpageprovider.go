@@ -10,6 +10,8 @@ func (s AbsoluteSubPageProvider) GetSubPages(pageUrl *url.URL) []url.URL {
 	subPages := s.SubPageProvider.GetSubPages(pageUrl)
 
 	for i, subPageUrl := range subPages {
+		subPages[i].Fragment = ""
+		subPages[i].RawQuery = ""
 		if !subPageUrl.IsAbs(){
 			makeAbsolute(pageUrl, &subPages[i])
 		}
@@ -18,8 +20,9 @@ func (s AbsoluteSubPageProvider) GetSubPages(pageUrl *url.URL) []url.URL {
 	return subPages
 }
 
-func makeAbsolute(rootUrl *url.URL, path *url.URL) {
-	path.Host = rootUrl.Host
-	path.Scheme = rootUrl.Scheme
+func makeAbsolute(pageUrl *url.URL, subPageUrl *url.URL) {
+
+	subPageUrl.Host = pageUrl.Host
+	subPageUrl.Scheme = pageUrl.Scheme
 }
 
